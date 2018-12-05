@@ -6,17 +6,17 @@ class Account
 {
     protected $id,
               $name,
-              $balance;
+              $balance = 80;
 
-    public function __construct(array $array){
+    public function __construct(array $data){
 
-                    $this->hydrate($array);
+                    $this->hydrate($data);
 
     }
 
-    public function hydrate(array $array)
+    public function hydrate(array $data)
     {
-        foreach ($donnees as $key => $value)
+        foreach ($data as $key => $value)
         {
             $method = 'set'.ucfirst($key);
                 
@@ -38,13 +38,13 @@ class Account
        return $this->name;
     }
 
-    public function geBalance(){
+    public function getBalance(){
 
         return $this->balance;
     }
 
-    public function setId(int $id){
-
+    public function setId($id){
+        $id = (int) $id;
         $this->id = $id;
     }
 
@@ -53,7 +53,7 @@ class Account
         $this->name = $name;
     }
 
-    public function setBalance(int $balance){
+    public function setBalance($balance){
 
         $this->balance = $balance;
     }

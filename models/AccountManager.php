@@ -17,15 +17,7 @@ class AccountManager
     {
         $this->setDb($db);
     }
-
-    /**
-     * Get the value of _db
-     */ 
-    public function getDb()
-    {
-        return $this->_db;
-    }
-
+    
     /**
      * Set the value of _db
      *
@@ -35,19 +27,54 @@ class AccountManager
     public function setDb(PDO $db)
     {
         $this->_db = $db;
-
+        
         return $this;
+    }
+    
+    /**
+     * Get the value of _db
+     */ 
+    public function getDb()
+    {
+        return $this->_db;
+
     }
 
     public function getAccounts(){
-        $arrayOfAcounts = [];
+        $arrayOfAccounts = [];
 
-        $query = $this->getDB()->query('SELECT * FROM count');
-        $dataAcounts = $query->fetchAll(PDO::FETCH_ASSOC);
+        $query = $this->_db->query('SELECT * FROM count');
+        $dataAccounts = $query->fetchAll(PDO::FETCH_ASSOC);
+        
+        foreach ($dataAccounts as $dataAccount) {
+            $arrayOfAccounts[] = new Account($dataAccount);
+        }
 
-        foreach ($dataAcounts as $dataAcount) {
-            
+        return $arrayOfAccounts;
     }
+
+
+   
+    public function addAccount($account)
+    {
+
+        $query = $this->_db->prepare('INSERT INTO `count`(name, balance) VALUES (:name, :balance)');
+        $query->bindValue('name', $account->getName(), PDO::PARAM_STR);
+        
+
+        $query->execute();
+
+    }
+
+
+    public function delete($account)
+    {
+        $query = $this->getDb()->prepare('DELETE FROM count WHERE id = :id');
+        $query->bindValue('id', $account, PDO::PARAM_INT);
+
+        $query->execute();
+    }
+
 
 
 }

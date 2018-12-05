@@ -12,11 +12,11 @@ include('includes/header.php');
 
 	<h1>Mon application bancaire</h1>
 
-	<form class="newAccount" action="../controllers/account.php" method="post">
+	<form class="newAccount" action="../controllers/index.php" method="post">
 		<label>Sélectionner un type de compte</label>
 		<select class="" name="name" required>
-			<option value="PEL">PLE</option>
-			<option value="Levret A">Levret A</option>
+			<option value="PEL">PEL</option>
+			<option value="Livret A">Livret A</option>
 			<option value="Compte Joint">Compte Joint</option>
 			<?php // Listez les options possibles à choisir (compte courant, PEL, etc.) ?>
 		</select>
@@ -29,16 +29,19 @@ include('includes/header.php');
 
 	<!-- Pour chaque compte enregistré en base de données, il faudra générer le code ci-dessous -->
 
-	<?php // ######### DEBUT DU CODE A GENERER A CHAQUE TOUR DE BOUCLE ######### ?>
+	<?php foreach($getAccounts as $account){// ######### DEBUT DU CODE A GENERER A CHAQUE TOUR DE BOUCLE ######### 
+	
+
+	?>
 
 		<div class="card-container">
 
 			<div class="card">
-				<h3><strong><?php // Affichez ici le nom du compte ?></strong></h3>
+				<h3><strong><?php echo $account->getName(); // Affichez ici le nom du compte ?></strong></h3>
 				<div class="card-content">
 
 
-					<p>Somme disponible : <?php // Affichez ici la somme disponible ?> €</p>
+					<p>Somme disponible : <?php echo $account->getBalance();// Affichez ici la somme disponible ?> €</p>
 
 					<!-- Formulaire pour dépot/retrait -->
 					<h4>Dépot / Retrait</h4>
@@ -68,7 +71,7 @@ include('includes/header.php');
 
 					<!-- Formulaire pour suppression -->
 			 		<form class="delete" action="index.php" method="post">
-				 		<input type="hidden" name="id" value="<?php // Afficher ici l'id du compte ?>"  required>
+				 		<input type="hidden" name="id" value="<?php echo $account->getId();// Afficher ici l'id du compte ?>"  required>
 				 		<input type="submit" name="delete" value="Supprimer le compte">
 			 		</form>
 
@@ -76,7 +79,7 @@ include('includes/header.php');
 			</div>
 		</div>
 
-	<?php // ######### FIN DU CODE A GENERER A CHAQUE TOUR DE BOUCLE ######### ?>
+	<?php }// ######### FIN DU CODE A GENERER A CHAQUE TOUR DE BOUCLE ######### ?>
 
 	</div>
 
