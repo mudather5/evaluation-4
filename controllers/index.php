@@ -14,19 +14,35 @@ function chargerClasse($classname)
 
 spl_autoload_register('chargerClasse');
 
-$acountManager = new AccountManager(Database::DB());
+$db = Database::DB();
+
+$acountManager = new AccountManager($db);
 
 
 if (isset($_POST['new']))
 {
-    $data_account = array(
-        'name' => $_POST['name'],
-        'balance' => 80
-    );
+    if($acountManager->checkIfExist($_POST['name']) === true)
 
-    $account = new Account($data_account);
+        {
+            $message = "Le compt existe déjà !";
 
-    $acountManager->addAccount($account);
+        }
+
+        else
+        {
+
+
+            $data_account = array(
+                'name' => $_POST['name'],
+                'balance' => 80
+            );
+        
+            $account = new Account($data_account);
+        
+            $acountManager->addAccount($account);
+        }
+
+
     
 }
 
@@ -34,10 +50,10 @@ if (isset($_POST['new']))
 $getAccounts = $acountManager->getAccounts();
 
 
-if(!empty($_POST['delete']))
+if(isset($_POST['delete']))
 {
 
-    $id = (int) $_POST['delete'];
+    $id = (int) $_POST['id'];
 
     $account = $acountManager->delete($id);
 

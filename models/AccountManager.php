@@ -54,25 +54,42 @@ class AccountManager
     }
 
 
+    public function checkIfExist($name)
+    {
+        $query = $this->getDb()->prepare('SELECT * FROM `count` WHERE name = :name');
+        $query->bindValue('name', $name, PDO::PARAM_STR);
+        $query->execute();
+
+        // Si il y a une entrée avec ce nom, c'est qu'il existe
+        if ($query->rowCount() > 0)
+        {
+            return true;
+        }
+        
+        // Sinon c'est qu'il n'existe pas
+        return false;
+    }
+
+
    
     public function addAccount($account)
     {
 
-        $query = $this->_db->prepare('INSERT INTO `count`(name, balance) VALUES (:name, :balance)');
+        $query = $this->_db->prepare('INSERT INTO `count`(name, balance) VALUES (:name, 80)');
         $query->bindValue('name', $account->getName(), PDO::PARAM_STR);
-        
-
+    
         $query->execute();
-
     }
 
 
     public function delete($account)
     {
-        $query = $this->getDb()->prepare('DELETE FROM count WHERE id = :id');
+        $query = $this->getDb()->prepare('DELETE FROM `count` WHERE id = :id');
         $query->bindValue('id', $account, PDO::PARAM_INT);
 
         $query->execute();
+
+        
     }
 
 
