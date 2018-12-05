@@ -46,7 +46,7 @@ include('includes/header.php');
 					<!-- Formulaire pour dépot/retrait -->
 					<h4>Dépot / Retrait</h4>
 					<form action="index.php" method="post">
-						<input type="hidden" name="id" value=" <?php // Afficher ici l'id du compte ?>"  required>
+						<input type="hidden" name="id" value=" <?php echo $account->getId();// Afficher ici l'id du compte ?>"  required>
 						<label>Entrer une somme à débiter/créditer</label>
 						<input type="number" name="balance" placeholder="Ex: 250" required>
 						<input type="submit" name="payment" value="Créditer">
@@ -60,11 +60,14 @@ include('includes/header.php');
 						<h4>Transfert</h4>
 						<label>Entrer une somme à transférer</label>
 						<input type="number" name="balance" placeholder="Ex: 300"  required>
-						<input type="hidden" name="idDebit" value="<?php // Afficher ici l'id du compte à débiter?>" required>
+						<input type="hidden" name="idDebit" value="<?php echo $account->getId();?>" required>
 						<label for="">Sélectionner un compte pour le virement</label>
 						<select name="idPayment" required>
-							<option value="" disabled>Choisir un compte</option>
-							<?php // Lister ici les comptes sur lesquels verser l'argent ?>
+							<option placeholder="Choisir un compte">Choisir un compte</option>
+							
+							<?php foreach($getAccounts as $accountlist){ ?>
+							<option value="<?php echo $accountlist->getId(); ?>"><?php echo $accountlist->getName(); ?></option>
+							<?php } ?>
 						</select>
 						<input type="submit" name="transfer" value="Transférer l'argent">
 					</form>
