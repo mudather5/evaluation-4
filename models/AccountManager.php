@@ -72,6 +72,13 @@ class AccountManager
 
 
    
+    /**
+     * addAccount
+     *
+     * @param  mixed $account
+     *
+     * @return void
+     */
     public function addAccount($account)
     {
 
@@ -82,6 +89,13 @@ class AccountManager
     }
 
 
+    /**
+     * delete
+     *
+     * @param  mixed $account
+     *
+     * @return void
+     */
     public function delete($account)
     {
         $query = $this->getDb()->prepare('DELETE FROM `count` WHERE id = :id');
@@ -93,6 +107,14 @@ class AccountManager
     }
 
 
+    /**
+     * transfer
+     *
+     * @param  mixed $balance
+     * @param  mixed $id
+     *
+     * @return void
+     */
     public function transfer($balance, $id)
     {
         $query = $this->getDb()->prepare('UPDATE `count` SET balance = balance - :balance WHERE id = :id');
@@ -103,6 +125,14 @@ class AccountManager
     }
 
 
+    /**
+     * criditTransfare
+     *
+     * @param  mixed $balance
+     * @param  mixed $id
+     *
+     * @return void
+     */
     public function criditTransfare($balance, $id)
     {
         $query = $this->getDb()->prepare('UPDATE `count` SET balance = balance + :balance WHERE id = :id');
@@ -115,6 +145,14 @@ class AccountManager
 
     
     
+    /**
+     * depot
+     *
+     * @param  mixed $balance
+     * @param  mixed $id
+     *
+     * @return void
+     */
     public function depot($balance, $id)
     {
         $query = $this->getDb()->prepare('UPDATE `count` SET balance = balance + :balance WHERE id = :id');
@@ -125,6 +163,14 @@ class AccountManager
     }
     
     
+    /**
+     * retrait
+     *
+     * @param  mixed $balance
+     * @param  mixed $id
+     *
+     * @return void
+     */
     public function retrait($balance, $id)
     {
         $query = $this->getDb()->prepare('UPDATE `count` SET balance = balance - :balance WHERE id = :id');
