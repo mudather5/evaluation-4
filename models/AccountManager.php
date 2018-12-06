@@ -113,6 +113,18 @@ class AccountManager
     }
 
 
+    
+    
+    public function depot($balance, $id)
+    {
+        $query = $this->getDb()->prepare('UPDATE `count` SET balance = balance + :balance WHERE id = :id');
+        $query->bindValue('balance', $balance, PDO::PARAM_INT);
+        $query->bindValue('id', $id, PDO::PARAM_INT);
+        
+        $query->execute();
+    }
+    
+    
     public function retrait($balance, $id)
     {
         $query = $this->getDb()->prepare('UPDATE `count` SET balance = balance - :balance WHERE id = :id');
@@ -121,17 +133,6 @@ class AccountManager
 
         $query->execute();
     }
-
-
-    public function depot($balance, $id)
-    {
-        $query = $this->getDb()->prepare('UPDATE `count` SET balance = balance + :balance WHERE id = :id');
-        $query->bindValue('balance', $balance, PDO::PARAM_INT);
-        $query->bindValue('id', $id, PDO::PARAM_INT);
-
-        $query->execute();
-    }
-
 
 
 

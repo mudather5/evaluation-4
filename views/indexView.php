@@ -17,7 +17,7 @@ include('includes/header.php');
 		<select class="" name="name" required>
 			<option value="PEL">PEL</option>
 			<option value="Livret A">Livret A</option>
-			<option value="Compte Joint">Compte Joint</option>
+			<option value="Compte Courant">Compte courant</option>
 			<?php // Listez les options possibles à choisir (compte courant, PEL, etc.) ?>
 		</select>
 		<input type="submit" name="new" value="Ouvrir un nouveau compte">

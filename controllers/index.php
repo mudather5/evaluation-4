@@ -79,15 +79,31 @@ $getAccounts = $acountManager->getAccounts();
 if(isset($_POST['payment']))
 {
 
+
     $balance = (int) $_POST['balance'];
 
-   $acountManager->retrait($balance, $_POST['payment']);
-//    $acountManager->retrait($balance, $_POST['Créditer']);
+   $acountManager->depot($balance, $_POST['id']);
+
+}
+
+$getAccounts = $acountManager->getAccounts();
+
+if(isset($_POST['debit']))
+{
+
+    $balance = (int) $_POST['balance'];
+
+   $acountManager->retrait($balance, $_POST['id']);
+
 
 
 }
 
 $getAccounts = $acountManager->getAccounts();
+
+
+
+
 
 
 
