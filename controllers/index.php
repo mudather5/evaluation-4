@@ -1,5 +1,12 @@
 <?php
 
+/**
+ * chargerClasse
+ *
+ * @param  mixed $classname
+ *
+ * get the datas from the files
+ */
 function chargerClasse($classname)
 {
     if(file_exists('../models/'. $classname.'.php'))
@@ -18,9 +25,10 @@ $db = Database::DB();
 
 $acountManager = new AccountManager($db);
 
-
+//getting in the form to have name and the balance from the form 
 if (isset($_POST['new']))
 {
+    //check the name of the account for making one account 
     if($acountManager->checkIfExist($_POST['name']) === true)
 
         {
@@ -31,15 +39,22 @@ if (isset($_POST['new']))
         else
         {
 
+            if($_POST['name'] !== 'Compte Courant'){
+            $data_account = array(
+                'name' => $_POST['name'],
+                'balance' => 0
+            );
 
+        } 
+        else 
+        {
             $data_account = array(
                 'name' => $_POST['name'],
                 'balance' => 80
-            );
+            );        }
+            $account = new Account($data_account);// create a new object
         
-            $account = new Account($data_account);
-        
-            $acountManager->addAccount($account);
+            $acountManager->addAccount($account);// get the addaccount method form AccountManager.php and adde it in the data base
         }
 
 
@@ -49,51 +64,53 @@ if (isset($_POST['new']))
 
 $getAccounts = $acountManager->getAccounts();
 
-
+//condition for deleting an account 
 if(isset($_POST['delete']))
 {
 
     $id = (int) $_POST['id'];
 
-    $account = $acountManager->delete($id);
+    $account = $acountManager->delete($id);// access to method delete in AccountManage.php
 
 }
 
 $getAccounts = $acountManager->getAccounts();
 
 
-
+//condition for ckecking the input (transfer) in the form for transfering money
 if(isset($_POST['transfer']))
 {
 
     $balance = (int) $_POST['balance'];
 
-   $acountManager->transfer($balance, $_POST['idDebit']);
-   $acountManager->criditTransfare($balance, $_POST['idPayment']);
+   $acountManager->transfer($balance, $_POST['idDebit']);//access to method transfer in AccountManage.php
+   $acountManager->criditTransfare($balance, $_POST['idPayment']);//access to method criditTransfare in AccountManage.php
 
 }
 
 $getAccounts = $acountManager->getAccounts();
 
-
+//check if input (payment) existed in the form 
 if(isset($_POST['payment']))
 {
 
 
     $balance = (int) $_POST['balance'];
 
-   $acountManager->depot($balance, $_POST['id']);
+   $acountManager->deposit($balance, $_POST['id']);//access to method deposit in AccountManage.php 
 
 }
 
 $getAccounts = $acountManager->getAccounts();
+
+//check if input (debit) existed in the form 
 
 if(isset($_POST['debit']))
 {
 
     $balance = (int) $_POST['balance'];
 
-   $acountManager->retrait($balance, $_POST['id']);
+   $acountManager->withdraw($balance, $_POST['id']);//get the method withdraw from AccountManager.php
 
 
 
