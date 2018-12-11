@@ -6,17 +6,31 @@ class Account
 {
     protected $id,
               $name,
-              $balance;
+              $balance = 80;
 
-    public function __construct(array $array){
+    /**
+     * __construct
+     *
+     * @param  mixed $data
+     *
+     * method construct to initialise the object's properties
+     */
+    public function __construct(array $data){
 
-                    $this->hydrate($array);
+                    $this->hydrate($data);
 
     }
 
-    public function hydrate(array $array)
+    /**
+     * hydrate
+     *
+     * @param  mixed $data
+     *
+     * method of hydration for "filling out" an object structure with data
+     */
+    public function hydrate(array $data)
     {
-        foreach ($donnees as $key => $value)
+        foreach ($data as $key => $value)
         {
             $method = 'set'.ucfirst($key);
                 
@@ -27,33 +41,70 @@ class Account
         }
     }
 
+   
+    /**
+     * getId
+     *
+     * @return function getter which allows us to control access to id
+     */
     public function getId(){
 
         return $this->id;
 
     }
 
+    /**
+     * getName
+     *
+     * @return function getter which allows us to control access to name
+     */
     public function getName(){
 
        return $this->name;
     }
 
-    public function geBalance(){
+    /**
+     * getBalance
+     *
+     * @return function getter which allows us to control access to balance
+     */
+    public function getBalance(){
 
         return $this->balance;
     }
 
-    public function setId(int $id){
-
+    /**
+     * setId
+     *
+     * @param  int $id
+     *
+     * @function setter allows us to “set” the value of  id
+     */
+    public function setId($id){
+        $id = (int) $id;
         $this->id = $id;
     }
 
+    /**
+     * setName
+     *
+     * @param  string $name
+     *
+     * @return function setter, allows us to “set” the value of  name
+     */
     public function setName(string $name){
 
         $this->name = $name;
     }
 
-    public function setBalance(int $balance){
+    /**
+     * setBalance
+     *
+     * @param  int $balance
+     *
+     *@return function setter, allows us to “set” the value of  balance
+     */
+    public function setBalance($balance){
 
         $this->balance = $balance;
     }
