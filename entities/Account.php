@@ -41,10 +41,11 @@ class Account
         }
     }
 
+   
     /**
      * getId
      *
-     * function getter allows us to control access to id
+     * @return function getter which allows us to control access to id
      */
     public function getId(){
 
@@ -55,7 +56,7 @@ class Account
     /**
      * getName
      *
-     * function getter allows us to control access to name
+     * @return function getter which allows us to control access to name
      */
     public function getName(){
 
@@ -65,7 +66,7 @@ class Account
     /**
      * getBalance
      *
-     * function getter allows us to control access to attribut balance
+     * @return function getter which allows us to control access to balance
      */
     public function getBalance(){
 
@@ -75,7 +76,7 @@ class Account
     /**
      * setId
      *
-     * @param  mixed $id
+     * @param  int $id
      *
      * @function setter allows us to “set” the value of  id
      */
@@ -87,9 +88,9 @@ class Account
     /**
      * setName
      *
-     * @param  mixed $name
+     * @param  string $name
      *
-     * function setter allows us to “set” the value of  name
+     * @return function setter, allows us to “set” the value of  name
      */
     public function setName(string $name){
 
@@ -99,9 +100,9 @@ class Account
     /**
      * setBalance
      *
-     * @param  mixed $balance
+     * @param  int $balance
      *
-     * function setter allows us to “set” the value of  balance
+     *@return function setter, allows us to “set” the value of  balance
      */
     public function setBalance($balance){
 

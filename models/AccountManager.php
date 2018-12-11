@@ -8,14 +8,15 @@ class AccountManager
     private $_db;
 
 
+
+
     /**
-     * constructor
+     * __construct
      *
-     * @param PDO $db
-     * method construct to initialise the object's properties
+     * @param  mixed $db
+     *
+     * @return method construct to initialise the object's properties
      */
-
-
     public function __construct(PDO $db)
     {
         $this->setDb($db);
@@ -26,7 +27,7 @@ class AccountManager
      *
      * @param PDO $db
      * 
-     * @function setter allows us to “set” the value of  db
+     * @return function setter, allows us to “set” the value of  db
 
      */ 
     public function setDb(PDO $db)
@@ -49,17 +50,19 @@ class AccountManager
     /**
      * getAccounts
      *
-     * @return void
+     * @return method getAccounts
      * 
-     * Get all acounts 
+     * Get all acounts
+     *  
 
      */
+    
     public function getAccounts(){
 
         //We declare an empty array
         $arrayOfAccounts = [];
 
-        $query = $this->_db->query('SELECT * FROM account');
+        $query = $this->_db->query('SELECT * FROM accounts');
         $dataAccounts = $query->fetchAll(PDO::FETCH_ASSOC);
         
         foreach ($dataAccounts as $dataAccount) {
@@ -73,12 +76,12 @@ class AccountManager
     /**
      * checkIfExist the name exists or no
      *
-     * @param  mixed $name
+     * @param  string $name
      *
      */
     public function checkIfExist($name)
     {
-        $query = $this->getDb()->prepare('SELECT * FROM `account` WHERE name = :name');
+        $query = $this->getDb()->prepare('SELECT * FROM `accounts` WHERE name = :name');
         $query->bindValue('name', $name, PDO::PARAM_STR);
         $query->execute();
 
@@ -95,32 +98,33 @@ class AccountManager
 
 
    
+    
     /**
      * addAccount
      *
      * @param  mixed $account
-     *function addAccount for adding new accunt
+     *
+     * @return function addAccount for adding new accunt
      */
     public function addAccount($account)
     {
 
-        $query = $this->_db->prepare('INSERT INTO `account`(name, balance) VALUES (:name, 80)');
+        $query = $this->_db->prepare('INSERT INTO `accounts`(name, balance) VALUES (:name, 80)');
         $query->bindValue('name', $account->getName(), PDO::PARAM_STR);
     
         $query->execute();
     }
-
 
     /**
      * delete
      *
      * @param  mixed $account
      *
-     * function for deleting the account from the data base 
+     * @return function for deleting the account from the data base 
      */
     public function delete($account)
     {
-        $query = $this->getDb()->prepare('DELETE FROM `account` WHERE id = :id');
+        $query = $this->getDb()->prepare('DELETE FROM `accounts` WHERE id = :id');
         $query->bindValue('id', $account, PDO::PARAM_INT);
 
         $query->execute();
@@ -135,11 +139,11 @@ class AccountManager
      * @param  mixed $balance
      * @param  mixed $id
      *
-     * method for transfraing the balance
+     * @return method for transfraing the balance
      */
     public function transfer($balance, $id)
     {
-        $query = $this->getDb()->prepare('UPDATE `account` SET balance = balance - :balance WHERE id = :id');
+        $query = $this->getDb()->prepare('UPDATE `accounts` SET balance = balance - :balance WHERE id = :id');
         $query->bindValue('balance', $balance, PDO::PARAM_INT);
         $query->bindValue('id', $id, PDO::PARAM_INT);
 
@@ -153,11 +157,11 @@ class AccountManager
      * @param  mixed $balance
      * @param  mixed $id
      *
-     * method for resiving the balance which has been transfared in the method tranfare 
+     * @return method for resiving the balance which has been transfared in the method tranfare 
      */
     public function criditTransfare($balance, $id)
     {
-        $query = $this->getDb()->prepare('UPDATE `account` SET balance = balance + :balance WHERE id = :id');
+        $query = $this->getDb()->prepare('UPDATE `accounts` SET balance = balance + :balance WHERE id = :id');
         $query->bindValue('balance', $balance, PDO::PARAM_INT);
         $query->bindValue('id', $id, PDO::PARAM_INT);
 
@@ -170,14 +174,14 @@ class AccountManager
     /**
      * deposit
      *
-     * @param  mixed $balance
-     * @param  mixed $id
+     * @param  int $balance
+     * @param  int $id
      *
-     * method deposit in order to deposit money
+     * @return method deposit in order to deposit money
      */
     public function deposit($balance, $id)
     {
-        $query = $this->getDb()->prepare('UPDATE `account` SET balance = balance + :balance WHERE id = :id');
+        $query = $this->getDb()->prepare('UPDATE `accounts` SET balance = balance + :balance WHERE id = :id');
         $query->bindValue('balance', $balance, PDO::PARAM_INT);
         $query->bindValue('id', $id, PDO::PARAM_INT);
         
@@ -188,14 +192,14 @@ class AccountManager
     /**
      * withdraw
      *
-     * @param  mixed $balance
-     * @param  mixed $id
+     * @param  int $balance
+     * @param  int $id
      *
-     * method withdraw in order to withdraw the balance(money) 
+     * @return method withdraw in order to withdraw the balance(money) 
      */
     public function withdraw($balance, $id)
     {
-        $query = $this->getDb()->prepare('UPDATE `account` SET balance = balance - :balance WHERE id = :id');
+        $query = $this->getDb()->prepare('UPDATE `accounts` SET balance = balance - :balance WHERE id = :id');
         $query->bindValue('balance', $balance, PDO::PARAM_INT);
         $query->bindValue('id', $id, PDO::PARAM_INT);
 
